@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sperion — AI × Sustainability, made undeniable.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      /* palette consistent with Carbon Explorer */
+      --bg1:#0b1020; --bg2:#0a0f1e; --card:#121831; --border:#223055;
+      --muted:#7b88a8; --ink:#e5e9f5; --ink2:#cbd5e1; --link:#93c5fd;
+      --acc1:#7dd3fc; --acc2:#a78bfa; --ok:#22c55e; --warn:#f59e0b;
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto;color:var(--ink);background:radial-gradient(1200px 700px at 20% -10%,rgba(125,211,252,.15),transparent 60%),linear-gradient(180deg,var(--bg1),var(--bg2) 65%)}
+    a{color:var(--link);text-decoration:none}
+    .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+    .nav{position:sticky;top:0;z-index:20;background:rgba(10,15,30,.6);backdrop-filter:blur(8px);border-bottom:1px solid #172041}
+    .nav-inner{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:12px 0}
+    .brand{font-weight:800;letter-spacing:.3px}
+    .brand-grad{background:linear-gradient(135deg,var(--acc1),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .btn{appearance:none;border:1px solid var(--border);background:#0f1530;color:var(--ink);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:600}
+    .btn:hover{border-color:#2b3d70}
+    .btn-grad{background:linear-gradient(135deg,var(--acc1),var(--acc2));color:#081225;border:none}
+    .pill{padding:6px 10px;border-radius:999px;background:#12214a;border:1px solid var(--border);font-size:12px;color:#cbd5e1}
+    .hero{padding:68px 0 48px}
+    .h1{font-size:44px;line-height:1.15;margin:0 0 12px;font-weight:800}
+    .h2{font-size:28px;line-height:1.2;margin:0 0 12px;font-weight:700;color:#c7d2fe}
+    .sub{color:var(--ink2);max-width:820px}
+    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .cards{display:grid;gap:16px;margin:28px 0 10px}
+    @media(min-width:920px){.cards{grid-template-columns:repeat(3,1fr)}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .card p{margin:.3rem 0 0;color:#b9c3e1}
+    .icon{width:36px;height:36px;border-radius:10px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--acc1),var(--acc2));color:#0a1020;font-weight:800}
+    .grid2{display:grid;gap:16px}
+    @media(min-width:920px){.grid2{grid-template-columns:1.2fr .8fr}}
+    .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    @media(min-width:800px){.kpis{grid-template-columns:repeat(4,1fr)}}
+    .kpi{background:#0f1530;border:1px solid var(--border);border-radius:14px;padding:12px;text-align:center}
+    .kpi .v{font-size:22px;font-weight:800}
+    .section{padding:40px 0}
+    .muted{color:var(--muted)}
+    .footer{border-top:1px solid #172041;padding:22px 0;margin-top:24px;color:#8fa0c7}
+    .tagline{font-size:14px;color:#dbeafe}
+    .hero-cta .btn{min-width:180px}
+    .product-card{display:flex;flex-direction:column;gap:8px}
+    .product-card .cta{margin-top:6px}
+    .split{display:grid;gap:18px}
+    @media(min-width:980px){.split{grid-template-columns:1.1fr .9fr}}
+    .about{background:linear-gradient(180deg,rgba(125,211,252,.06),transparent 30%)}
+    /* simple anchor offsets */
+    section{scroll-margin-top:80px}
+  </style>
+</head>
+<body>
+  <div id="app">
+    <nav class="nav">
+      <div class="wrap nav-inner">
+        <div class="row">
+          <div class="brand">Sperion <span class="brand-grad">• AI × Sustainability</span></div>
+          <span class="pill">Beta</span>
+        </div>
+        <div class="row">
+          <a href="#products" class="btn">Products</a>
+          <a href="#about" class="btn">About</a>
+          <a href="#contact" class="btn">Contact</a>
+          <a href="https://app.sperion.io" class="btn-grad btn">Launch free agent</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="wrap hero">
+      <div class="split">
+        <div>
+          <h1 class="h1">AI × Sustainability — make it undeniable.</h1>
+          <p class="sub">Sperion harnesses AI to turn sustainability into measurable business value—evidence you can audit, playbooks you can run, and a free carbon agent to begin today.</p>
+          <div class="row hero-cta" style="margin-top:16px">
+            <a class="btn btn-grad" href="https://app.sperion.io" target="_blank">Launch the free agent</a>
+            <a class="btn" :href="bookDemo">Book a demo</a>
+          </div>
+          <div class="tagline" style="margin-top:14px">Audit-grade or it didn’t happen. • Proof beats posturing.</div>
+        </div>
+        <div class="card">
+          <div class="row" style="justify-content:space-between"><div class="icon">Σ</div><span class="pill">Evidence-bound</span></div>
+          <h2 class="h2">Sustainability report agent (evidence linking)</h2>
+          <p class="muted">Reads your report line-by-line, links each claim to verifiable evidence, and exports assurance-ready packs—no more manual chase.</p>
+          <div class="kpis" style="margin-top:10px">
+            <div class="kpi"><div class="v">-80%</div><div class="muted">manual evidence chase</div></div>
+            <div class="kpi"><div class="v">Audit‑grade</div><div class="muted">register & exports</div></div>
+            <div class="kpi"><div class="v">Faster</div><div class="muted">filings & diligence</div></div>
+            <div class="kpi"><div class="v">Better</div><div class="muted">financing outcomes</div></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="wrap section" id="products">
+      <h2 class="h2">Products</h2>
+      <div class="cards">
+        <!-- Product 1: Evidence Linking Agent -->
+        <div class="card product-card">
+          <div class="row"><div class="icon">🔗</div><strong>Verify — Evidence Linking Agent</strong></div>
+          <p>Link every claim to proof. Export audit-ready evidence registers and assurance packs with versioned factor libraries and transparent logs.</p>
+          <div class="row cta">
+            <a :href="bookDemo" class="btn">Book a demo</a>
+            <a href="#about" class="btn">How it works</a>
+          </div>
+        </div>
+        <!-- Product 2: Sector Library -->
+        <div class="card product-card">
+          <div class="row"><div class="icon">📚</div><strong>Amplify — Sector Library</strong></div>
+          <p>Codify ESG value creation by industry—cost, revenue, risk, and financing—so teams know what to do next and why it matters.</p>
+          <div class="row cta">
+            <a :href="bookDemo" class="btn">See playbooks</a>
+            <a href="#about" class="btn">Learn more</a>
+          </div>
+        </div>
+        <!-- Product 3: Carbon Agent -->
+        <div class="card product-card">
+          <div class="row"><div class="icon">🌱</div><strong>Begin — Carbon Footprint Agent</strong></div>
+          <p>Baseline your emissions in minutes with our free agent. Upload ledgers or activity data and export a plan you can run tomorrow.</p>
+          <div class="row cta">
+            <a href="https://app.sperion.io" class="btn btn-grad" target="_blank">Launch free agent</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section">
+      <div class="grid2">
+        <div class="card">
+          <h3 class="h2">Proof & outcomes</h3>
+          <ul>
+            <li>Credibility: fewer audit findings, cleaner filings, faster diligence.</li>
+            <li>Capital: improved lender confidence, lower financing friction.</li>
+            <li>Execution: playbooks that tie ESG actions to P&L and risk.</li>
+            <li>Talent & brand: a culture of measurable impact.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="row" style="justify-content:space-between"><strong>Product pillars</strong><span class="pill">Slide‑ready</span></div>
+          <ol>
+            <li><b>Verify</b> – AI evidence linking & assurance exports (audit‑grade).</li>
+            <li><b>Amplify</b> – Sector playbooks & ESG value‑creation library.</li>
+            <li><b>Educate</b> – Training for students & teams, credential pathways.</li>
+            <li><b>Begin</b> – Free carbon agent for SME baselines & actions.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="about section" id="about">
+      <div class="wrap">
+        <h2 class="h2">About Sperion</h2>
+        <p class="sub">Sustainability only works when it’s credible and creates value. Sperion makes both inevitable. Our evidence-linking agent transforms every sentence and number in a report into citations you can trust—exporting audit-ready registers and assurance packs. Our industry library translates ESG into operating levers—cost, revenue, risk, and financing—so teams know what to do next and why it matters. We embed these capabilities through practical training for students and professionals. And because starting should be easy, our free carbon-footprint agent gives SMEs a baseline and an action plan on day one. Privacy-first architecture, human-in-the-loop governance, and transparent logs mean regulators, auditors, lenders, and customers can all trust the outcome. With Sperion, companies move from narrative to numbers, from numbers to proof, and from proof to performance that compounds.</p>
+        <div class="row" style="margin-top:12px">
+          <span class="pill">Privacy-first</span>
+          <span class="pill">Human-in-the-loop</span>
+          <span class="pill">Assurance-ready</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="contact">
+      <div class="card">
+        <h2 class="h2">Get started</h2>
+        <p class="muted">Choose your path: try the free carbon agent, or book a demo to see evidence linking and sector playbooks.</p>
+        <div class="row" style="margin-top:10px">
+          <a class="btn btn-grad" href="https://app.sperion.io" target="_blank">Launch the free agent</a>
+          <a class="btn" :href="bookDemo">Book a demo</a>
+          <a class="btn" :href="mailto">Email us</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="wrap footer">
+      <div class="row" style="justify-content:space-between">
+        <div>© <span>{{ year }}</span> Sperion. <span class="muted">AI × Sustainability, made undeniable.</span></div>
+        <div class="row"><a href="#products">Products</a><span style="opacity:.4">&nbsp;·&nbsp;</span><a href="#about">About</a><span style="opacity:.4">&nbsp;·&nbsp;</span><a href="#contact">Contact</a></div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Vue 3 (CDN) -->
+  <script src="https://unpkg.com/vue@3.4.38/dist/vue.global.prod.js"></script>
+  <script>
+    const { createApp } = Vue;
+    createApp({
+      data:()=>({
+        year: new Date().getFullYear(),
+        bookDemo: 'https://calendly.com/your-calendly/sperion-demo',
+        mailto: 'mailto:hello@sperion.io?subject=Sperion%20Demo&body=Hi%20Sperion%2C%20we%27d%20like%20a%20demo.'
+      })
+    }).mount('#app');
+  </script>
+</body>
+</html>
