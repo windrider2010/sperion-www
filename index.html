@@ -23,7 +23,7 @@
     .nav-inner{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:12px 0}
     .brand{font-weight:800;letter-spacing:.3px}
     .brand-grad{background:linear-gradient(135deg,var(--acc1),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .btn{appearance:none;border:1px solid var(--border);background:#0f1530;color:var(--ink);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:600}
+    .btn{appearance:none;border:1px solid var(--border);background:#0f1530;color:var(--ink);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;justify-content:center;line-height:1.2;min-height:42px}
     .btn:hover{border-color:#2b3d70}
     .btn-grad{background:linear-gradient(135deg,var(--acc1),var(--acc2));color:#081225;border:none}
     .pill{padding:6px 10px;border-radius:999px;background:#12214a;border:1px solid var(--border);font-size:12px;color:#cbd5e1}
@@ -38,7 +38,11 @@
     .card p{margin:.3rem 0 0;color:#b9c3e1}
     .icon{width:36px;height:36px;border-radius:10px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--acc1),var(--acc2));color:#0a1020;font-weight:800}
     .grid2{display:grid;gap:16px}
-    @media(min-width:920px){.grid2{grid-template-columns:1.2fr .8fr}}
+    /* constrain text measure without shrinking the card */
+    .measure{max-width:65ch}
+    @media(max-width:920px){.measure{max-width:100%}}
+    @media(min-width:920px){.grid2{grid-template-columns:auto 1fr}}/* first column auto-size to content */
+    #proof-block{justify-self:start} /* prevent stretch so card hugs its content */
     .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
     @media(min-width:800px){.kpis{grid-template-columns:repeat(4,1fr)}}
     .kpi{background:#0f1530;border:1px solid var(--border);border-radius:14px;padding:12px;text-align:center}
@@ -55,7 +59,19 @@
     .about{background:linear-gradient(180deg,rgba(125,211,252,.06),transparent 30%)}
     /* simple anchor offsets */
     section{scroll-margin-top:80px}
-  </style>
+    /* --- Typography tuned to Carbonplan OffsetsDB vibe --- */
+    .h1{font-size:56px;line-height:1.08;margin:0 0 10px;font-weight:800;letter-spacing:-0.02em}
+    @media(max-width:720px){.h1{font-size:38px;line-height:1.12}}
+    .h2{font-size:30px;line-height:1.15;margin:0 0 10px;font-weight:700;color:#c7d2fe;letter-spacing:-0.01em}
+    .sub, p{font-size:18px;line-height:1.6;max-width:65ch}
+    a{text-underline-offset:3px}
+
+    /* --- Fade-in / phase-in animations --- */
+    .fade{opacity:0;transform:translateY(16px);transition:opacity .9s ease, transform .9s ease}
+    .fade.in{opacity:1;transform:none}
+    .reveal{opacity:0;transform:translateY(18px)}
+    .reveal.in{opacity:1;transform:none;transition:opacity 900ms cubic-bezier(.2,.7,.2,1),transform 900ms cubic-bezier(.2,.7,.2,1)}
+</style>
 </head>
 <body>
   <div id="app">
@@ -77,11 +93,11 @@
     <header class="wrap hero">
       <div class="split">
         <div>
-          <h1 class="h1">AI × Sustainability — make it undeniable.</h1>
+          <h1 class="h1 fade" id="hero-title">AI × Sustainability — make it undeniable.</h1>
           <p class="sub">Sperion harnesses AI to turn sustainability into measurable business value—evidence you can audit, playbooks you can run, and a free carbon agent to begin today.</p>
           <div class="row hero-cta" style="margin-top:16px">
             <a class="btn btn-grad" href="https://app.sperion.io" target="_blank">Launch the free agent</a>
-            <a class="btn" :href="bookDemo">Book a demo</a>
+            <a :href="bookDemo" class="btn">Book a demo</a>
           </div>
           <div class="tagline" style="margin-top:14px">Audit-grade or it didn’t happen. • Proof beats posturing.</div>
         </div>
@@ -133,16 +149,18 @@
 
     <section class="wrap section">
       <div class="grid2">
-        <div class="card">
-          <h3 class="h2">Proof & outcomes</h3>
-          <ul>
+        <div class="card reveal" id="proof-block">
+          <div class="measure">
+            <h3 class="h2">Proof & Outcomes</h3>
+            <ul>
             <li>Credibility: fewer audit findings, cleaner filings, faster diligence.</li>
             <li>Capital: improved lender confidence, lower financing friction.</li>
             <li>Execution: playbooks that tie ESG actions to P&L and risk.</li>
             <li>Talent & brand: a culture of measurable impact.</li>
           </ul>
+          </div>
         </div>
-        <div class="card">
+        <div class="card reveal" id="pillars-block">
           <div class="row" style="justify-content:space-between"><strong>Product pillars</strong><span class="pill">Slide‑ready</span></div>
           <ol>
             <li><b>Verify</b> – AI evidence linking & assurance exports (audit‑grade).</li>
@@ -155,7 +173,7 @@
     </section>
 
     <section class="about section" id="about">
-      <div class="wrap">
+      <div class="wrap reveal" id="about-block">
         <h2 class="h2">About Sperion</h2>
         <p class="sub">Sustainability only works when it’s credible and creates value. Sperion makes both inevitable. Our evidence-linking agent transforms every sentence and number in a report into citations you can trust—exporting audit-ready registers and assurance packs. Our industry library translates ESG into operating levers—cost, revenue, risk, and financing—so teams know what to do next and why it matters. We embed these capabilities through practical training for students and professionals. And because starting should be easy, our free carbon-footprint agent gives SMEs a baseline and an action plan on day one. Privacy-first architecture, human-in-the-loop governance, and transparent logs mean regulators, auditors, lenders, and customers can all trust the outcome. With Sperion, companies move from narrative to numbers, from numbers to proof, and from proof to performance that compounds.</p>
         <div class="row" style="margin-top:12px">
@@ -194,9 +212,32 @@
       data:()=>({
         year: new Date().getFullYear(),
         bookDemo: 'https://calendly.com/your-calendly/sperion-demo',
-        mailto: 'mailto:contact@sperion.io?subject=Sperion%20Demo&body=Hi%20Sperion%2C%20we%27d%20like%20a%20demo.'
+        mailto: 'mailto:hello@sperion.io?subject=Sperion%20Demo&body=Hi%20Sperion%2C%20we%27d%20like%20a%20demo.'
       })
     }).mount('#app');
+  </script>
+  <script>
+    // Phase-in hero title on load (use double rAF to ensure transition triggers)
+    function phaseInHero(){
+      const hero = document.getElementById('hero-title');
+      if(!hero) return;
+      hero.classList.remove('in'); // ensure starting state
+      // Wait for style & layout, then add class in a later frame
+      requestAnimationFrame(()=>{
+        // force reflow so the browser recognizes initial opacity 0
+        void hero.offsetWidth;
+        requestAnimationFrame(()=> hero.classList.add('in'));
+      });
+    }
+    window.addEventListener('DOMContentLoaded', phaseInHero);
+    window.addEventListener('pageshow', phaseInHero);
+
+    // Phase-in any .reveal elements when scrolled into view
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold: 0.15});
+    reveals.forEach(el=> io.observe(el));
   </script>
 </body>
 </html>
