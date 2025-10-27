@@ -57,6 +57,13 @@
     .split{display:grid;gap:18px}
     @media(min-width:980px){.split{grid-template-columns:1.1fr .9fr}}
     .about{background:linear-gradient(180deg,rgba(125,211,252,.06),transparent 30%)}
+    .about-grid{display:grid;gap:20px;align-items:center}
+    @media (min-width:960px){.about-grid{grid-template-columns:1.15fr .85fr}}
+    .about-img{
+    width:100%;height:auto;object-fit:cover;aspect-ratio:4/3;
+    border-radius:16px;border:1px solid var(--border);
+    box-shadow:0 14px 34px rgba(0,0,0,.35);background:#0e1430;
+    }
     /* simple anchor offsets */
     section{scroll-margin-top:80px}
     /* --- Typography tuned to Carbonplan OffsetsDB vibe --- */
@@ -71,6 +78,14 @@
     .fade.in{opacity:1;transform:none}
     .reveal{opacity:0;transform:translateY(18px)}
     .reveal.in{opacity:1;transform:none;transition:opacity 900ms cubic-bezier(.2,.7,.2,1),transform 900ms cubic-bezier(.2,.7,.2,1)}
+  /* --- Visual band with photographic background --- */
+    .visual{position:relative; margin:0;}
+    .visual .bg{min-height:420px; background-image:url('assets/audit_esg.png'); background-size:cover; background-position:center; position:relative;}
+    .visual .bg::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(11,16,32,.55),rgba(10,15,30,.75));}
+    .visual .inner{position:absolute; inset:0; display:grid; place-items:center;}
+    .visual .panel{background:rgba(18,24,49,.78); border:1px solid var(--border); border-radius:16px; padding:18px 20px; box-shadow:0 18px 40px rgba(0,0,0,.35); backdrop-filter:blur(4px); max-width:960px; margin:0 20px}
+    .visual .panel h3{margin:0 0 8px; font-size:24px; letter-spacing:-.01em}
+    .visual .panel p{margin:0; color:#c5d0ee}
 </style>
 </head>
 <body>
@@ -114,6 +129,17 @@
         </div>
       </div>
     </header>
+
+    <!-- Photo visual band (replace the image URL above to your hexagon/AI image) -->
+    <section class="visual" aria-label="AI background visual">
+      <div class="bg"></div>
+      <div class="inner">
+        <div class="panel reveal">
+          <h3 class="h2" style="margin:0">Audit‑grade ESG, built for operators.</h3>
+          <p>From claims to proof. From proof to performance. Link every statement to evidence and scale value creation with sector playbooks.</p>
+        </div>
+      </div>
+    </section>
 
     <section class="wrap section" id="products">
       <h2 class="h2">Products</h2>
@@ -173,16 +199,31 @@
     </section>
 
     <section class="about section" id="about">
-      <div class="wrap reveal" id="about-block">
+  <div class="wrap reveal" id="about-block">
+    <div class="about-grid">
+      <div>
         <h2 class="h2">About Sperion</h2>
-        <p class="sub">Sustainability only works when it’s credible and creates value. Sperion makes both inevitable. Our evidence-linking agent transforms every sentence and number in a report into citations you can trust—exporting audit-ready registers and assurance packs. Our industry library translates ESG into operating levers—cost, revenue, risk, and financing—so teams know what to do next and why it matters. We embed these capabilities through practical training for students and professionals. And because starting should be easy, our free carbon-footprint agent gives SMEs a baseline and an action plan on day one. Privacy-first architecture, human-in-the-loop governance, and transparent logs mean regulators, auditors, lenders, and customers can all trust the outcome. With Sperion, companies move from narrative to numbers, from numbers to proof, and from proof to performance that compounds.</p>
+        <p class="sub">
+          Sustainability only works when it’s credible and creates value. Sperion makes both inevitable. Our evidence-linking agent transforms every sentence and number in a report into citations you can trust—exporting audit-ready registers and assurance packs. Our industry library translates ESG into operating levers—cost, revenue, risk, and financing—so teams know what to do next and why it matters. We embed these capabilities through practical training for students and professionals. And because starting should be easy, our free carbon-footprint agent gives SMEs a baseline and an action plan on day one. Privacy-first architecture, human-in-the-loop governance, and transparent logs mean regulators, auditors, lenders, and customers can all trust the outcome. With Sperion, companies move from narrative to numbers, from numbers to proof, and from proof to performance that compounds.
+        </p>
         <div class="row" style="margin-top:12px">
           <span class="pill">Privacy-first</span>
           <span class="pill">Human-in-the-loop</span>
           <span class="pill">Assurance-ready</span>
         </div>
       </div>
-    </section>
+
+      <div>
+        <img
+          class="about-img"
+          src="assets/sustainability_ai.png"
+          alt="Audit-grade ESG data review"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
 
     <section class="wrap section" id="contact">
       <div class="card">
