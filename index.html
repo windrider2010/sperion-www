@@ -1,299 +1,406 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sperion — AI × Sustainability, made undeniable.</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="icon" href="assets/sperion_logo_mark_512.png" type="image/x-icon">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      /* palette consistent with Carbon Explorer */
-      --bg1:#0b1020; --bg2:#0a0f1e; --card:#121831; --border:#223055;
-      --muted:#7b88a8; --ink:#e5e9f5; --ink2:#cbd5e1; --link:#93c5fd;
-      --acc1:#7dd3fc; --acc2:#a78bfa; --ok:#22c55e; --warn:#f59e0b;
-      --radius:16px;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto;color:var(--ink);background:radial-gradient(1200px 700px at 20% -10%,rgba(125,211,252,.15),transparent 60%),linear-gradient(180deg,var(--bg1),var(--bg2) 65%)}
-    a{color:var(--link);text-decoration:none}
-    .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-    .nav{position:sticky;top:0;z-index:20;background:rgba(10,15,30,.6);backdrop-filter:blur(8px);border-bottom:1px solid #172041}
-    .nav-inner{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:12px 0}
-    .brand{font-weight:800;letter-spacing:.3px}
-    .brand-grad{background:linear-gradient(135deg,var(--acc1),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .btn{appearance:none;border:1px solid var(--border);background:#0f1530;color:var(--ink);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;justify-content:center;line-height:1.2;min-height:42px}
-    .btn:hover{border-color:#2b3d70}
-    .btn-grad{background:linear-gradient(135deg,var(--acc1),var(--acc2));color:#081225;border:none}
-    .pill{padding:6px 10px;border-radius:999px;background:#12214a;border:1px solid var(--border);font-size:12px;color:#cbd5e1}
-    .hero{padding:68px 0 48px}
-    .h1{font-size:44px;line-height:1.15;margin:0 0 12px;font-weight:800}
-    .h2{font-size:28px;line-height:1.2;margin:0 0 12px;font-weight:700;color:#c7d2fe}
-    .sub{color:var(--ink2);max-width:820px}
-    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-    .cards{display:grid;gap:16px;margin:28px 0 10px}
-    @media(min-width:920px){.cards{grid-template-columns:repeat(3,1fr)}}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-    .card p{margin:.3rem 0 0;color:#b9c3e1}
-    .icon{width:36px;height:36px;border-radius:10px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--acc1),var(--acc2));color:#0a1020;font-weight:800}
-    .grid2{display:grid;gap:16px}
-    /* constrain text measure without shrinking the card */
-    .measure{max-width:65ch}
-    @media(max-width:920px){.measure{max-width:100%}}
-    @media(min-width:920px){.grid2{grid-template-columns:auto 1fr}}/* first column auto-size to content */
-    #proof-block{justify-self:start} /* prevent stretch so card hugs its content */
-    .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    @media(min-width:800px){.kpis{grid-template-columns:repeat(4,1fr)}}
-    .kpi{background:#0f1530;border:1px solid var(--border);border-radius:14px;padding:12px;text-align:center}
-    .kpi .v{font-size:22px;font-weight:800}
-    .section{padding:40px 0}
-    .muted{color:var(--muted)}
-    .footer{border-top:1px solid #172041;padding:22px 0;margin-top:24px;color:#8fa0c7}
-    .tagline{font-size:14px;color:#dbeafe}
-    .hero-cta .btn{min-width:180px}
-    .product-card{display:flex;flex-direction:column;gap:8px}
-    .product-card .cta{margin-top:6px}
-    .split{display:grid;gap:18px}
-    @media(min-width:980px){.split{grid-template-columns:1.1fr .9fr}}
-    .about{background:linear-gradient(180deg,rgba(125,211,252,.06),transparent 30%)}
-    .about-grid{display:grid;gap:20px;align-items:center}
-    @media (min-width:960px){.about-grid{grid-template-columns:1.15fr .85fr}}
-    .about-img{
-    width:100%;height:auto;object-fit:cover;aspect-ratio:4/3;
-    border-radius:16px;border:1px solid var(--border);
-    box-shadow:0 14px 34px rgba(0,0,0,.35);background:#0e1430;
-    }
-    /* simple anchor offsets */
-    section{scroll-margin-top:80px}
-    /* --- Typography tuned to Carbonplan OffsetsDB vibe --- */
-    .h1{font-size:56px;line-height:1.08;margin:0 0 10px;font-weight:800;letter-spacing:-0.02em}
-    @media(max-width:720px){.h1{font-size:38px;line-height:1.12}}
-    .h2{font-size:30px;line-height:1.15;margin:0 0 10px;font-weight:700;color:#c7d2fe;letter-spacing:-0.01em}
-    .sub, p{font-size:18px;line-height:1.6;max-width:65ch}
-    a{text-underline-offset:3px}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Sperion turns climate, asset, operating and documentary evidence into decision-ready intelligence for underwriting, credit and valuation."
+    />
+    <meta name="theme-color" content="#0b0d0f" />
+    <link rel="canonical" href="https://www.sperion.io/" />
+    <link rel="icon" href="assets/sperion_logo_mark_512.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" href="assets/sperion-hero-night.webp" as="image" type="image/webp" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Sperion — From physical reality to financial decision</title>
+  </head>
 
-    /* --- Fade-in / phase-in animations --- */
-    .fade{opacity:0;transform:translateY(16px);transition:opacity .9s ease, transform .9s ease}
-    .fade.in{opacity:1;transform:none}
-    .reveal{opacity:0;transform:translateY(18px)}
-    .reveal.in{opacity:1;transform:none;transition:opacity 900ms cubic-bezier(.2,.7,.2,1),transform 900ms cubic-bezier(.2,.7,.2,1)}
-  /* --- Visual band with photographic background --- */
-    .visual{position:relative; margin:0;}
-    .visual .bg{min-height:420px; background-image:url('assets/audit_esg.png'); background-size:cover; background-position:center; position:relative;}
-    .visual .bg::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(11,16,32,.55),rgba(10,15,30,.75));}
-    .visual .inner{position:absolute; inset:0; display:grid; place-items:center;}
-    .visual .panel{background:rgba(18,24,49,.78); border:1px solid var(--border); border-radius:16px; padding:18px 20px; box-shadow:0 18px 40px rgba(0,0,0,.35); backdrop-filter:blur(4px); max-width:960px; margin:0 20px}
-    .visual .panel h3{margin:0 0 8px; font-size:24px; letter-spacing:-.01em}
-    .visual .panel p{margin:0; color:#c5d0ee}
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: .5rem;           /* 文本与图标的间距 */
-      font-weight: 700;
-    }
-    .brand-logo {
-      height: 1.25em;       /* 跟字号联动，自动与文字等高 */
-      width: auto;
-      display: block;       /* 去掉默认基线空隙 */
-    }
-</style>
-</head>
-<body>
-  <div id="app">
-    <nav class="nav">
-      <div class="wrap nav-inner">
-        <div class="row">
-          <div class="brand">
-            <img src="assets/sperion_logo_mark_512.png" alt="Sperion logo" class="brand-logo" />
-            <span>Sperion <span class="brand-grad">• AI × Sustainability</span></span>
-          </div>
-          <span class="pill">V1.0</span>
-        </div>
-        <div class="row">
-          <a href="#products" class="btn">Products</a>
-          <a href="#about" class="btn">About</a>
-          <a href="#contact" class="btn">Contact</a>
-          <a href="https://app.sperion.io" class="btn-grad btn">Launch free agent</a>
-        </div>
-      </div>
-    </nav>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-    <header class="wrap hero">
-      <div class="split">
-        <div>
-          <h1 class="h1 fade" id="hero-title">AI × Sustainability - make it undeniable</h1>
-          <p class="sub">Sperion harnesses AI to turn sustainability into measurable business value: evidence you can audit, playbooks you can run, and a free carbon agent to begin today.</p>
-          <div class="row hero-cta" style="margin-top:16px">
-            <a class="btn btn-grad" href="https://app.sperion.io" target="_blank">Launch the free agent</a>
-            <a :href="bookDemo" class="btn">Book a demo</a>
-          </div>
-          <div class="tagline" style="margin-top:14px">Audit-grade or it didn’t happen | Proof beats posturing</div>
-        </div>
-        <div class="card">
-          <div class="row" style="justify-content:space-between"><div class="icon">Σ</div><span class="pill">Evidence-bound</span></div>
-          <h2 class="h2">Sustainability report agent (evidence linking)</h2>
-          <p class="muted">Reads your report line-by-line, links each claim to verifiable evidence, and exports assurance-ready packs, no more manual chase.</p>
-          <div class="kpis" style="margin-top:10px">
-            <div class="kpi"><div class="v">-80%</div><div class="muted">manual evidence chase</div></div>
-            <div class="kpi"><div class="v">Audit‑grade</div><div class="muted">register & exports</div></div>
-            <div class="kpi"><div class="v">Faster</div><div class="muted">filings & diligence</div></div>
-            <div class="kpi"><div class="v">Better</div><div class="muted">financing outcomes</div></div>
-          </div>
-        </div>
-      </div>
+    <header class="site-header" data-header>
+      <a class="wordmark" href="#top" aria-label="Sperion home">
+        <img src="assets/sperion_logo_mark_512.png" alt="" width="32" height="32" />
+        <span>SPERION</span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="sr-only">Toggle navigation</span>
+        <span></span><span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+        <a href="#platform">Platform</a>
+        <a href="#applications">Applications</a>
+        <a href="#research">Research</a>
+        <a href="#company">Company</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a class="header-cta" href="#platform">
+        See the platform
+        <span aria-hidden="true">↘</span>
+      </a>
     </header>
 
-    <!-- Photo visual band (replace the image URL above to your hexagon/AI image) -->
-    <section class="visual" aria-label="AI background visual">
-      <div class="bg"></div>
-      <div class="inner">
-        <div class="panel reveal">
-          <h3 class="h2" style="margin:0">Audit‑grade ESG, built for operators.</h3>
-          <p>From claims to proof. From proof to performance. Link every statement to evidence and scale value creation with sector playbooks.</p>
+    <main id="main">
+      <section class="hero scene" id="top" data-scene="hero_01">
+        <div class="hero-media" aria-hidden="true">
+          <img src="assets/sperion-hero-night.webp" alt="" />
+          <div class="hero-vignette"></div>
+          <div class="rain-layer"></div>
         </div>
-      </div>
-    </section>
 
-    <section class="wrap section" id="products">
-      <h2 class="h2">Products</h2>
-      <div class="cards">
-        <!-- Product 1: Evidence Linking Agent -->
-        <div class="card product-card">
-          <div class="row"><div class="icon">🔗</div><strong>Verify - Evidence Linking Agent</strong></div>
-          <p>Link every claim to proof. Export audit-ready evidence registers and assurance packs with versioned factor libraries and transparent logs.</p>
-          <div class="row cta">
-            <a :href="bookDemo" class="btn">Book a demo</a>
-            <a href="#about" class="btn">How it works</a>
-          </div>
+        <div class="scene-index" aria-hidden="true">
+          <span>01</span>
+          <span>Physical reality</span>
         </div>
-        <!-- Product 2: Sector Library -->
-        <div class="card product-card">
-          <div class="row"><div class="icon">📚</div><strong>Amplify - Sector Library</strong></div>
-          <p>Codify ESG value creation by industry - cost, revenue, risk, and financing - so teams know what to do next and why it matters.</p>
-          <div class="row cta">
-            <a :href="bookDemo" class="btn">See playbooks</a>
-            <a href="#about" class="btn">Learn more</a>
-          </div>
-        </div>
-        <!-- Product 3: Carbon Agent -->
-        <div class="card product-card">
-          <div class="row"><div class="icon">🌱</div><strong>Begin - Carbon Footprint Agent</strong></div>
-          <p>Baseline your emissions in minutes with our free agent. Upload ledgers or activity data and export a plan you can run tomorrow.</p>
-          <div class="row cta">
-            <a href="https://app.sperion.io" class="btn btn-grad" target="_blank">Launch free agent</a>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="wrap section">
-      <div class="grid2">
-        <div class="card reveal" id="proof-block">
-          <div class="measure">
-            <h3 class="h2">Proof & Outcomes</h3>
-            <ul>
-            <li>Credibility: fewer audit findings, cleaner filings, faster diligence</li>
-            <li>Capital: improved lender confidence, lower financing friction</li>
-            <li>Execution: playbooks that tie ESG actions to P&L and risk</li>
-            <li>Talent & brand: a culture of measurable impact</li>
-          </ul>
-          </div>
-        </div>
-        <div class="card reveal" id="pillars-block">
-          <div class="row" style="justify-content:space-between"><strong>Product pillars</strong><span class="pill">Slide‑ready</span></div>
-          <ol>
-            <li><b>Verify</b> - AI evidence linking & assurance exports</li>
-            <li><b>Amplify</b> - Sector playbooks & ESG value‑creation library</li>
-            <li><b>Educate</b> - Training for students & teams, credential pathways</li>
-            <li><b>Begin</b> - Free carbon agent for SME baselines & actions</li>
-          </ol>
-        </div>
-      </div>
-    </section>
-
-    <section class="about section" id="about">
-      <div class="wrap reveal" id="about-block">
-        <div class="about-grid">
-          <div>
-            <h2 class="h2">About Sperion</h2>
-            <p class="sub">
-              Sustainability only works when it’s credible and creates value. Sperion makes both inevitable. Our evidence-linking agent transforms every sentence and number in a report into citations you can trust, exporting audit-ready registers and assurance packs. Our industry library translates ESG into operating levers - cost, revenue, risk, and financing - so teams know what to do next and why it matters. We embed these capabilities through practical training for students and professionals. And because starting should be easy, our free carbon-footprint agent gives SMEs a baseline and an action plan on day one. Privacy-first architecture, human-in-the-loop governance, and transparent logs mean regulators, auditors, lenders, and customers can all trust the outcome. With Sperion, companies move from narrative to numbers, from numbers to proof, and from proof to performance that compounds.
+        <div class="hero-content">
+          <p class="eyebrow hero-kicker">Decision intelligence for real-world risk</p>
+          <h1>
+            <span>From physical reality</span>
+            <span class="hero-line-two">to financial decision.</span>
+          </h1>
+          <div class="hero-detail">
+            <p>
+              Sperion turns climate, asset, operating and documentary evidence into
+              decision-ready intelligence for underwriting, credit and valuation.
             </p>
-            <div class="row" style="margin-top:12px">
-              <span class="pill">Privacy-first</span>
-              <span class="pill">Human-in-the-loop</span>
-              <span class="pill">Assurance-ready</span>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#platform">Explore the platform</a>
+              <a class="text-link" href="#applications">See CRE Autopilot <span>→</span></a>
             </div>
           </div>
+        </div>
 
-          <div>
-            <img
-              class="about-img"
-              src="assets/sustainability_ai.png"
-              alt="Audit-grade ESG data review"
-            />
+        <div class="hero-status" aria-hidden="true">
+          <span>External condition</span>
+          <i></i>
+          <span>Capital decision</span>
+        </div>
+
+        <a class="scroll-cue" href="#gap" aria-label="Continue to the next scene">
+          <span>Scroll to trace the decision chain</span>
+          <i></i>
+        </a>
+      </section>
+
+      <section class="gap-scene scene" id="gap" data-scene="gap_02">
+        <div class="gap-sticky">
+          <div class="gap-media" aria-hidden="true">
+            <img src="assets/sperion-risk-street.webp" alt="" />
+            <div class="gap-shade"></div>
+          </div>
+
+          <div class="scene-index scene-index-light" aria-hidden="true">
+            <span>02</span>
+            <span>The broken interface</span>
+          </div>
+
+          <div class="gap-copy">
+            <p class="eyebrow">The gap</p>
+            <h2>The physical world and the financial model rarely speak the same language.</h2>
+            <p class="gap-summary">
+              Most systems stop at one layer. Sperion connects evidence and real-world
+              conditions to the assumptions used to allocate capital.
+            </p>
+          </div>
+
+          <ol class="gap-layers" aria-label="Layers Sperion connects">
+            <li><span>01</span><strong>Physical world</strong><small>Weather · location · infrastructure</small></li>
+            <li><span>02</span><strong>Evidence</strong><small>Documents · assets · operations</small></li>
+            <li><span>03</span><strong>Financial transmission</strong><small>OPEX · CAPEX · insurance · revenue</small></li>
+            <li><span>04</span><strong>Decision</strong><small>Underwriting · credit · valuation</small></li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="transmission scene" id="translation" data-scene="transmission_03">
+        <div class="transmission-sticky">
+          <div class="transmission-head">
+            <div>
+              <p class="eyebrow">Financial transmission</p>
+              <h2>Risk matters when it changes cash flow.</h2>
+            </div>
+            <p>
+              Sperion models the path from environmental and operating conditions to
+              the assumptions investment teams already use.
+            </p>
+          </div>
+
+          <div class="transmission-stage">
+            <div class="asset-window" aria-hidden="true">
+              <img src="assets/sperion-risk-street.webp" alt="" />
+              <div class="asset-reading">
+                <span>Condition observed</span>
+                <strong data-reading>Heavy precipitation</strong>
+              </div>
+            </div>
+
+            <div class="transmission-flow" aria-label="Example risk transmission chain">
+              <div class="flow-line" aria-hidden="true"><i></i></div>
+              <ol>
+                <li class="is-active" data-step="0" data-reading="Heavy precipitation">
+                  <span>01</span><strong>Heavy precipitation</strong><small>Physical condition</small>
+                </li>
+                <li data-step="1" data-reading="Flood exposure">
+                  <span>02</span><strong>Flood exposure</strong><small>Asset vulnerability</small>
+                </li>
+                <li data-step="2" data-reading="Downtime · repair · insurance">
+                  <span>03</span><strong>Operating consequence</strong><small>Downtime · repair · adaptation</small>
+                </li>
+                <li data-step="3" data-reading="OPEX + CAPEX">
+                  <span>04</span><strong>Financial assumption</strong><small>OPEX · CAPEX · insurance</small>
+                </li>
+                <li data-step="4" data-reading="NOI · DSCR · value">
+                  <span>05</span><strong>Capital decision</strong><small>NOI · DSCR · value</small>
+                </li>
+              </ol>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-
-    <section class="wrap section" id="contact">
-      <div class="card">
-        <h2 class="h2">Get started</h2>
-        <p class="muted">Choose your path: try the free carbon agent, or book a demo to see evidence linking and sector playbooks.</p>
-        <div class="row" style="margin-top:10px">
-          <a class="btn btn-grad" href="https://app.sperion.io" target="_blank">Launch the free agent</a>
-          <a class="btn" :href="bookDemo">Book a demo</a>
-          <a class="btn" :href="mailto">Email us</a>
+      <section class="platform scene" id="platform" data-scene="platform_04">
+        <div class="platform-intro content-grid reveal">
+          <div>
+            <p class="eyebrow">The Sperion platform</p>
+            <h2>One system.<br />Three layers.</h2>
+          </div>
+          <p class="lead">
+            The platform holds the connection from what happened, to what it means,
+            to what should change in the decision.
+          </p>
         </div>
-      </div>
-    </section>
 
-    <footer class="wrap footer">
-      <div class="row" style="justify-content:space-between">
-        <div>© <span>{{ year }}</span> Sperion. <span class="muted">AI × Sustainability, made undeniable.</span></div>
-        <div class="row"><a href="#products">Products</a><span style="opacity:.4">&nbsp;·&nbsp;</span><a href="#about">About</a><span style="opacity:.4">&nbsp;·&nbsp;</span><a href="#contact">Contact</a></div>
-      </div>
+        <div class="platform-layers">
+          <article class="platform-layer reveal">
+            <div class="layer-number">01</div>
+            <div class="layer-copy">
+              <p class="eyebrow">Evidence</p>
+              <h3>Know what is true—and where it came from.</h3>
+              <p>Turn fragmented documents and datasets into traceable, governed information.</p>
+              <ul class="tag-list" aria-label="Evidence inputs">
+                <li>Documents</li><li>Asset data</li><li>Climate</li><li>Geospatial</li><li>Financial</li>
+              </ul>
+            </div>
+            <div class="evidence-visual" aria-label="Illustration of a source connected to a model assumption">
+              <div class="document-sheet">
+                <div class="doc-meta"><span>Engineering report</span><small>p. 42</small></div>
+                <p>Lower-level electrical equipment remains exposed during a 1-in-100-year precipitation event.</p>
+                <mark>Recommended mitigation budget: $480,000</mark>
+              </div>
+              <div class="evidence-link" aria-hidden="true"><span></span></div>
+              <div class="assumption-card">
+                <span>MODEL ASSUMPTION</span>
+                <strong>Adaptation CAPEX</strong>
+                <b>$480k</b>
+                <small>Source-linked · reviewed</small>
+              </div>
+            </div>
+          </article>
+
+          <article class="platform-layer layer-photo reveal">
+            <div class="layer-number">02</div>
+            <div class="layer-copy">
+              <p class="eyebrow">Translation</p>
+              <h3>Know what the risk means financially.</h3>
+              <p>Connect hazard, exposure and vulnerability to operating and financial consequences.</p>
+              <ul class="tag-list" aria-label="Financial transmission outputs">
+                <li>Operations</li><li>Insurance</li><li>OPEX</li><li>CAPEX</li><li>Cash flow</li><li>Valuation</li>
+              </ul>
+            </div>
+            <div class="layer-image">
+              <img src="assets/sperion-risk-street.webp" alt="Commercial property and service entrance during sustained rain" loading="lazy" />
+              <div class="image-caption"><span>Real-world condition</span><strong>Translated into model variables</strong></div>
+            </div>
+          </article>
+
+          <article class="platform-layer reveal">
+            <div class="layer-number">03</div>
+            <div class="layer-copy">
+              <p class="eyebrow">Decision</p>
+              <h3>Put intelligence inside the workflow.</h3>
+              <p>Deliver decision-ready outputs to underwriting, portfolio and investment-committee teams.</p>
+              <ul class="tag-list" aria-label="Decision workflows">
+                <li>Underwriting</li><li>Diligence</li><li>Monitoring</li><li>Investment committee</li>
+              </ul>
+            </div>
+            <div class="decision-visual" aria-label="Illustrative scenario comparison">
+              <div class="decision-topline"><span>Asset scenario / Riverfront Office</span><small>Review state</small></div>
+              <div class="decision-metrics">
+                <div><small>BASE NOI</small><strong>$8.42m</strong></div>
+                <div><small>RISK-ADJUSTED NOI</small><strong>$7.96m</strong></div>
+                <div><small>DSCR</small><strong>1.41×</strong></div>
+              </div>
+              <div class="sensitivity-row"><span>Insurance</span><i style="--m: 62%"></i><b>+$210k</b></div>
+              <div class="sensitivity-row"><span>Energy</span><i style="--m: 38%"></i><b>+$84k</b></div>
+              <div class="sensitivity-row"><span>Adaptation</span><i style="--m: 78%"></i><b>$480k</b></div>
+              <p class="illustrative-note">Illustrative scenario—not investment advice.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="application scene" id="applications" data-scene="application_05">
+        <div class="application-copy reveal">
+          <p class="eyebrow">Flagship application</p>
+          <h2>Underwriting starts with messy evidence. It should not end there.</h2>
+          <p>
+            CRE Autopilot turns acquisition documents into structured underwriting models,
+            scenario analysis and decision-ready outputs.
+          </p>
+          <p>
+            Sperion’s risk intelligence extends that workflow by connecting climate and
+            operating conditions to the assumptions that drive asset economics.
+          </p>
+          <a class="text-link text-link-light" href="https://app.sperion.io" target="_blank" rel="noopener noreferrer">
+            Explore CRE Autopilot <span>↗</span>
+          </a>
+        </div>
+
+        <div class="product-frame reveal" aria-label="CRE Autopilot illustrative deal workspace">
+          <div class="product-bar">
+            <div class="product-brand">
+              <img src="assets/sperion_logo_mark_512.png" alt="" />
+              <div><span>CRE AUTOPILOT</span><strong>Acquisition workbench</strong></div>
+            </div>
+            <span class="live-label">Illustrative workflow</span>
+          </div>
+
+          <div class="product-shell">
+            <aside class="product-rail" aria-hidden="true">
+              <b>S</b><i class="active"></i><i></i><i></i><i></i>
+            </aside>
+            <div class="product-main">
+              <div class="deal-title"><span>DEAL WORKSPACE</span><strong>Riverfront Office</strong></div>
+              <div class="workflow-pills">
+                <span class="done">OM</span><span class="done">T-12</span><span class="done">Rent roll</span><span class="current">Model</span><span>IC output</span>
+              </div>
+              <div class="model-grid">
+                <div class="model-cell wide">
+                  <small>Agent activity</small>
+                  <p><i></i> Sources extracted and linked</p>
+                  <p><i></i> Underwriting assumptions mapped</p>
+                  <p><i></i> Risk sensitivities prepared</p>
+                </div>
+                <div class="model-cell"><small>DEAL XIRR</small><strong>11.06%</strong><span>Base case</span></div>
+                <div class="model-cell"><small>YEAR 1 COC</small><strong>6.11%</strong><span>Base case</span></div>
+                <div class="model-cell workbook">
+                  <div class="sheet-head"><span>Underwriting model</span><b>V5</b></div>
+                  <div class="sheet-rows"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                  <div class="sheet-focus"><small>Cap rate</small><strong>5.25%</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="product-caption">Documents → model → scenarios → risk-adjusted assumptions → decision</p>
+        </div>
+      </section>
+
+      <section class="research scene" id="research" data-scene="research_06">
+        <div class="research-head content-grid reveal">
+          <div>
+            <p class="eyebrow">Sperion research</p>
+            <h2>The model behind the decision matters.</h2>
+          </div>
+          <div>
+            <p class="lead">
+              Decision-grade research connecting climate science, geospatial analysis
+              and financial modeling.
+            </p>
+            <p class="method-note">We expose assumptions, validation methods, scenario sensitivity and model limitations.</p>
+          </div>
+        </div>
+
+        <div class="research-grid">
+          <article class="research-card featured reveal">
+            <div class="paper-figure" aria-hidden="true">
+              <svg viewBox="0 0 600 260" role="presentation">
+                <path class="range" d="M10 211 C90 198 138 170 210 180 C286 190 313 109 387 118 C456 125 492 58 590 34 L590 92 C505 110 468 162 394 154 C317 146 291 222 210 214 C130 206 86 231 10 240 Z" />
+                <path class="line" d="M10 226 C91 214 139 188 210 197 C288 208 315 128 389 137 C459 146 495 79 590 59" />
+              </svg>
+              <div class="figure-label"><span>Operating cost sensitivity</span><small>Scenario range</small></div>
+            </div>
+            <div class="research-card-copy">
+              <span>WORKING PROGRAM / 01</span>
+              <h3>Climate-Induced Building OPEX Surprises</h3>
+              <p>How heat, precipitation, flood, energy, water, insurance and adaptation costs propagate into asset economics.</p>
+              <b>OPEX → NOI → DSCR → valuation</b>
+            </div>
+          </article>
+
+          <article class="research-card reveal">
+            <div class="research-number">02</div>
+            <span>MODEL VALIDATION</span>
+            <h3>When does higher-resolution climate data change an asset-level decision?</h3>
+            <p>Testing observations, spatial structure, intensity and uncertainty against financial sensitivity.</p>
+            <div class="mini-plot" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </article>
+
+          <article class="research-card reveal">
+            <div class="research-number">03</div>
+            <span>DECISION NOTE</span>
+            <h3>Flood risk is not a loss estimate.</h3>
+            <p>Mapping the missing path through interruption, insurance, adaptation requirements and cash flow.</p>
+            <div class="research-chain" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          </article>
+        </div>
+
+        <div class="uncertainty reveal">
+          <p class="eyebrow">Governed uncertainty</p>
+          <div>
+            <h3>A precise number can still be wrong.</h3>
+            <p>Sperion makes ranges, scenarios, confidence and model disagreement visible—so decision-makers can understand what matters and what remains unknown.</p>
+          </div>
+          <div class="range-key" aria-label="Illustrative range from lower to higher decision sensitivity">
+            <span>Lower sensitivity</span><i></i><span>Higher sensitivity</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="philosophy scene" id="company" data-scene="philosophy_10">
+        <div class="philosophy-sticky">
+          <img src="assets/sperion-philosophy-city.webp" alt="A city, river and infrastructure at dawn after a storm" loading="lazy" />
+          <div class="philosophy-shade"></div>
+          <div class="scene-index scene-index-light" aria-hidden="true"><span>07</span><span>Company philosophy</span></div>
+          <div class="philosophy-lines">
+            <p data-philosophy-line="0">The world does not arrive in a spreadsheet.</p>
+            <p data-philosophy-line="1">Eventually, the consequences do.</p>
+            <p data-philosophy-line="2">Sperion connects the two.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="closing scene" id="contact" data-scene="cta_11">
+        <div class="closing-grid reveal">
+          <p class="eyebrow">Start a decision conversation</p>
+          <h2>What changes in your model when the real world changes?</h2>
+          <div class="closing-actions">
+            <a class="button button-primary" href="mailto:contact@sperion.io?subject=Decision%20intelligence%20conversation">Talk to Sperion</a>
+            <a class="text-link" href="https://app.sperion.io" target="_blank" rel="noopener noreferrer">Explore CRE Autopilot <span>↗</span></a>
+          </div>
+          <p class="closing-note">Decision intelligence for climate, assets and financial risk.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="wordmark footer-wordmark" href="#top" aria-label="Back to top">
+        <img src="assets/sperion_logo_mark_512.png" alt="" width="28" height="28" />
+        <span>SPERION</span>
+      </a>
+      <p>Evidence → Risk → Financial impact → Decision</p>
+      <div><span>© <span data-year></span> Sperion</span><a href="mailto:contact@sperion.io">contact@sperion.io</a></div>
     </footer>
-  </div>
 
-  <!-- Vue 3 (CDN) -->
-  <script src="https://unpkg.com/vue@3.4.38/dist/vue.global.prod.js"></script>
-  <script>
-    const { createApp } = Vue;
-    createApp({
-      data:()=>({
-        year: new Date().getFullYear(),
-        bookDemo: 'https://calendly.com/contact-sperion',
-        mailto: 'mailto:contact@sperion.io?subject=Sperion%20Demo&body=Hi%20Sperion%2C%20we%27d%20like%20a%20demo.'
-      })
-    }).mount('#app');
-  </script>
-  <script>
-    // Phase-in hero title on load (use double rAF to ensure transition triggers)
-    function phaseInHero(){
-      const hero = document.getElementById('hero-title');
-      if(!hero) return;
-      hero.classList.remove('in'); // ensure starting state
-      // Wait for style & layout, then add class in a later frame
-      requestAnimationFrame(()=>{
-        // force reflow so the browser recognizes initial opacity 0
-        void hero.offsetWidth;
-        requestAnimationFrame(()=> hero.classList.add('in'));
-      });
-    }
-    window.addEventListener('DOMContentLoaded', phaseInHero);
-    window.addEventListener('pageshow', phaseInHero);
-
-    // Phase-in any .reveal elements when scrolled into view
-    const reveals = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, {threshold: 0.15});
-    reveals.forEach(el=> io.observe(el));
-  </script>
-</body>
+    <script src="app.js" defer></script>
+  </body>
 </html>
