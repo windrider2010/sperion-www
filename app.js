@@ -143,9 +143,10 @@
     if (transmission && window.innerWidth > 920) {
       const progress = sectionProgress(transmission);
       window.SperionSceneSystem.setProgress("transmission_03", progress);
-      transmission.style.setProperty("--transmission-progress", progress.toFixed(4));
       transmission.style.setProperty("--transmission-shift", `${(progress * -3).toFixed(3)}%`);
       const index = Math.min(flowSteps.length - 1, Math.floor(progress * flowSteps.length));
+      const completed = flowSteps.length > 1 ? index / (flowSteps.length - 1) : 0;
+      transmission.style.setProperty("--flow-complete", completed.toFixed(4));
       flowSteps.forEach((step, stepIndex) => {
         step.classList.toggle("is-active", stepIndex === index);
         step.classList.toggle("is-past", stepIndex < index);
