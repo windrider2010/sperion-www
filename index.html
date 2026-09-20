@@ -17,7 +17,7 @@
       rel="stylesheet"
     />
     <link rel="preload" href="assets/sperion-hero-night.webp" as="image" type="image/webp" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=hero-cinema-1" />
     <title>Sperion — From physical reality to financial decision</title>
   </head>
 
@@ -51,10 +51,21 @@
 
     <main id="main">
       <section class="hero scene" id="top" data-scene="hero_01">
-        <div class="hero-media" aria-hidden="true">
-          <img src="assets/sperion-hero-night.webp" alt="" />
+        <div class="hero-stage">
+        <div class="hero-cinema" aria-hidden="true">
+          <div class="hero-world">
+            <img class="hero-base" src="assets/sperion-hero-night.webp" alt="" width="1672" height="941" fetchpriority="high" />
+            <div class="hero-atmosphere"><div class="hero-mist"></div></div>
+            <div class="hero-river"></div>
+            <video class="hero-rain" muted loop playsinline preload="auto" tabindex="-1" disablepictureinpicture>
+              <source src="assets/hero/rain.webm" type="video/webm" />
+              <source src="assets/hero/rain.mp4" type="video/mp4" />
+            </video>
+            <div class="hero-reflection"></div>
+          </div>
+        </div>
+        <div class="hero-optics" aria-hidden="true">
           <div class="hero-vignette"></div>
-          <div class="rain-layer"></div>
         </div>
 
         <div class="scene-index" aria-hidden="true">
@@ -62,7 +73,7 @@
           <span>Physical reality</span>
         </div>
 
-        <div class="hero-content">
+        <div class="hero-content" id="hero-copy">
           <p class="eyebrow hero-kicker">Decision intelligence for real-world risk</p>
           <h1>
             <span>From physical reality</span>
@@ -90,6 +101,8 @@
           <span>Scroll to trace the decision chain</span>
           <i></i>
         </a>
+        <button class="hero-motion-toggle" type="button" aria-pressed="false" hidden>Pause atmosphere</button>
+        </div>
       </section>
 
       <section class="gap-scene scene" id="gap" data-scene="gap_02">
@@ -401,6 +414,9 @@
       <div><span>© <span data-year></span> Sperion</span><a href="mailto:contact@sperion.io">contact@sperion.io</a></div>
     </footer>
 
-    <script src="app.js" defer></script>
+    <script src="assets/vendor/gsap-3.15.0.min.js" defer></script>
+    <script src="assets/vendor/ScrollTrigger-3.15.0.min.js" defer></script>
+    <script src="app.js?v=hero-cinema-1" defer></script>
+    <script src="hero.js?v=hero-cinema-1" defer></script>
   </body>
 </html>

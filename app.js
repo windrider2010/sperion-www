@@ -61,7 +61,6 @@
   const header = document.querySelector("[data-header]");
   const menuToggle = document.querySelector(".menu-toggle");
   const nav = document.querySelector(".site-nav");
-  const hero = document.querySelector(".hero");
   const gap = document.querySelector(".gap-scene");
   const transmission = document.querySelector(".transmission");
   const philosophy = document.querySelector(".philosophy");
@@ -131,12 +130,6 @@
     const scrollY = window.scrollY;
     header?.classList.toggle("is-scrolled", scrollY > 32);
 
-    if (hero) {
-      const heroProgress = clamp(scrollY / Math.max(hero.offsetHeight, 1));
-      window.SperionSceneSystem.setProgress("hero_01", heroProgress);
-      hero.style.setProperty("--hero-scroll", `${heroProgress * 18}px`);
-    }
-
     if (gap && window.innerWidth > 920) {
       const progress = sectionProgress(gap);
       window.SperionSceneSystem.setProgress("gap_02", progress);
@@ -177,41 +170,6 @@
       requestAnimationFrame(updateScrollScenes);
     }
   };
-
-  let pointerTargetX = 0;
-  let pointerTargetY = 0;
-  let pointerX = 0;
-  let pointerY = 0;
-  let lastTime = performance.now();
-
-  const renderPointer = (time) => {
-    const delta = Math.min((time - lastTime) / 1000, 0.05);
-    lastTime = time;
-    const alpha = 1 - Math.exp(-delta / 0.55);
-    pointerX += (pointerTargetX - pointerX) * alpha;
-    pointerY += (pointerTargetY - pointerY) * alpha;
-    if (hero) {
-      hero.style.setProperty("--look-x", `${pointerX.toFixed(2)}px`);
-      hero.style.setProperty("--look-y", `${pointerY.toFixed(2)}px`);
-    }
-    requestAnimationFrame(renderPointer);
-  };
-
-  if (window.matchMedia("(pointer: fine)").matches) {
-    window.addEventListener("pointermove", (event) => {
-      pointerTargetX = (event.clientX / window.innerWidth - 0.5) * -12;
-      pointerTargetY = (event.clientY / window.innerHeight - 0.5) * -8;
-    }, { passive: true });
-    document.documentElement.addEventListener("mouseleave", () => {
-      pointerTargetX = 0;
-      pointerTargetY = 0;
-    });
-    window.addEventListener("blur", () => {
-      pointerTargetX = 0;
-      pointerTargetY = 0;
-    });
-    requestAnimationFrame(renderPointer);
-  }
 
   window.addEventListener("scroll", requestScrollUpdate, { passive: true });
   window.addEventListener("resize", requestScrollUpdate, { passive: true });
