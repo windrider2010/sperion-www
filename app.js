@@ -2,7 +2,6 @@
   "use strict";
 
   const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   const sceneContracts = [
     {
@@ -132,13 +131,13 @@
     const scrollY = window.scrollY;
     header?.classList.toggle("is-scrolled", scrollY > 32);
 
-    if (hero && !prefersReducedMotion.matches) {
+    if (hero) {
       const heroProgress = clamp(scrollY / Math.max(hero.offsetHeight, 1));
       window.SperionSceneSystem.setProgress("hero_01", heroProgress);
       hero.style.setProperty("--hero-scroll", `${heroProgress * 18}px`);
     }
 
-    if (gap && window.innerWidth > 920 && !prefersReducedMotion.matches) {
+    if (gap && window.innerWidth > 920) {
       const progress = sectionProgress(gap);
       window.SperionSceneSystem.setProgress("gap_02", progress);
       gap.style.setProperty("--gap-progress", progress.toFixed(4));
@@ -148,7 +147,7 @@
       gapLayers.forEach((layer, layerIndex) => layer.classList.toggle("is-active", layerIndex <= index));
     }
 
-    if (transmission && window.innerWidth > 920 && !prefersReducedMotion.matches) {
+    if (transmission && window.innerWidth > 920) {
       const progress = sectionProgress(transmission);
       window.SperionSceneSystem.setProgress("transmission_03", progress);
       transmission.style.setProperty("--transmission-progress", progress.toFixed(4));
@@ -161,7 +160,7 @@
       if (assetReading) assetReading.textContent = flowSteps[index]?.dataset.reading ?? "Heavy precipitation";
     }
 
-    if (philosophy && !prefersReducedMotion.matches) {
+    if (philosophy) {
       const progress = sectionProgress(philosophy);
       window.SperionSceneSystem.setProgress("philosophy_10", progress);
       philosophy.style.setProperty("--philosophy-progress", progress.toFixed(4));
@@ -191,7 +190,7 @@
     const alpha = 1 - Math.exp(-delta / 0.55);
     pointerX += (pointerTargetX - pointerX) * alpha;
     pointerY += (pointerTargetY - pointerY) * alpha;
-    if (hero && !prefersReducedMotion.matches) {
+    if (hero) {
       hero.style.setProperty("--look-x", `${pointerX.toFixed(2)}px`);
       hero.style.setProperty("--look-y", `${pointerY.toFixed(2)}px`);
     }
@@ -216,6 +215,5 @@
 
   window.addEventListener("scroll", requestScrollUpdate, { passive: true });
   window.addEventListener("resize", requestScrollUpdate, { passive: true });
-  prefersReducedMotion.addEventListener?.("change", requestScrollUpdate);
   updateScrollScenes();
 })();

@@ -683,16 +683,3 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .site-footer { grid-template-columns: 1fr; }
   .site-footer > div { justify-content: flex-start; flex-wrap: wrap; }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-  .hero-media img, .gap-media img, .asset-window img, .philosophy-sticky > img { transform: none !important; }
-  .hero-kicker, .hero h1 span, .hero-detail, .reveal { opacity: 1 !important; transform: none !important; }
-  .gap-scene, .transmission, .philosophy { height: auto; }
-  .gap-sticky, .transmission-sticky, .philosophy-sticky { position: relative; }
-  .gap-layers li, .transmission-flow li { opacity: 1; transform: none; }
-  .philosophy-sticky { min-height: 100svh; }
-  .philosophy-lines { gap: 28px; padding: 120px 0; }
-  .philosophy-lines p { position: relative; opacity: 1; transform: none; font-size: clamp(2.8rem, 7vw, 5rem); }
-}
